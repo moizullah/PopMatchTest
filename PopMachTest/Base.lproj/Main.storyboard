@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8BS-pf-ObU">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -18,47 +19,50 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="5nv-Ib-lGS" kind="relationship" relationship="rootViewController" id="dcH-2s-Dm7"/>
+                        <segue destination="348-Xu-bqE" kind="relationship" relationship="rootViewController" id="dur-Ln-HFY"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2x7-Nv-3DI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-423" y="113"/>
         </scene>
-        <!--Collection View Controller-->
-        <scene sceneID="Ggf-21-Qqp">
+        <!--Product List View Controller-->
+        <scene sceneID="bSk-Cc-tz4">
             <objects>
-                <collectionViewController id="5nv-Ib-lGS" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="pLf-JF-T3h">
+                <viewController id="348-Xu-bqE" customClass="ProductListViewController" customModule="PopMachTest" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KkB-b7-JDp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="qfF-Gx-0oa">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="sH5-yy-ZZD">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="urc-Ga-4dW">
-                            <size key="itemSize" width="50" height="50"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="hHN-io-Uoj">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </view>
-                            </collectionViewCell>
-                        </cells>
-                        <connections>
-                            <outlet property="dataSource" destination="5nv-Ib-lGS" id="3MH-it-tfC"/>
-                            <outlet property="delegate" destination="5nv-Ib-lGS" id="szb-xU-rme"/>
-                        </connections>
-                    </collectionView>
-                    <navigationItem key="navigationItem" id="5Np-r8-LaZ"/>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hbM-8U-WND" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <constraints>
+                            <constraint firstItem="izH-Qb-9ex" firstAttribute="bottom" secondItem="qfF-Gx-0oa" secondAttribute="bottom" id="66K-9H-N5h"/>
+                            <constraint firstItem="qfF-Gx-0oa" firstAttribute="top" secondItem="izH-Qb-9ex" secondAttribute="top" id="i1g-6u-Fxf"/>
+                            <constraint firstItem="izH-Qb-9ex" firstAttribute="trailing" secondItem="qfF-Gx-0oa" secondAttribute="trailing" id="rps-EM-ZtG"/>
+                            <constraint firstItem="qfF-Gx-0oa" firstAttribute="leading" secondItem="izH-Qb-9ex" secondAttribute="leading" id="vcL-pN-pJ2"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="izH-Qb-9ex"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="FhT-ZX-Ehd"/>
+                    <connections>
+                        <outlet property="collectionView" destination="qfF-Gx-0oa" id="tFZ-m5-Lda"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5CR-jB-yWm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="457" y="113"/>
+            <point key="canvasLocation" x="460" y="113"/>
         </scene>
     </scenes>
 </document>
