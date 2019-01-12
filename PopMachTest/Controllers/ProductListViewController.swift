@@ -12,8 +12,10 @@ private let cellReuseIdentifier = "productListCell"
 
 class ProductListViewController: UIViewController {
 
+    // MARK: - IBOutlets
     @IBOutlet weak var collectionView: UICollectionView!
     
+    // MARK: - Properties
     let data = [
         "Honda",
         "Kawasaki",
@@ -22,20 +24,28 @@ class ProductListViewController: UIViewController {
         "Yamaha"
     ]
 
+    // MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // CollectionView settings
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: "ProductCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: cellReuseIdentifier)
         
-        view.backgroundColor = UIColor(white: 1.0, alpha: 0.95)
+        // Color settings
+        view.backgroundColor = Theme.darkBackground
         collectionView.backgroundColor = .clear
+        
+        // Nav settings
+        navigationItem.title = "Products"
     }
 }
 
+// MARK: - UICollectionViewDelegate
 extension ProductListViewController: UICollectionViewDelegate {}
 
+// MARK: - UICollectionViewDataSource
 extension ProductListViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -57,6 +67,7 @@ extension ProductListViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension ProductListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = CGFloat((collectionView.bounds.size.width / 2) - 15)

@@ -18,12 +18,23 @@ class ProductCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.backgroundColor = UIColor.lightGray
+        // Color settings
+        self.backgroundColor = Theme.darkBackgroundSubView
+        nameLabel.textColor = Theme.lightText
+        priceLabel.textColor = Theme.lightText
+        dateLabel.textColor = .lightGray
+        image.alpha = 0.9
+
+        // Set corner radius
         self.layer.cornerRadius = 10
         self.layer.masksToBounds = true
     }
     
     override func prepareForReuse() {
-        nameLabel.text = ""
+        // Reset all fields
+        image.image = nil
+        nameLabel.text = nil
+        priceLabel.text = nil
+        dateLabel.text = nil
     }
 }
