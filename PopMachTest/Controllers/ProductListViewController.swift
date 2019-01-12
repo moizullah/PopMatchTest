@@ -14,6 +14,8 @@ class ProductListViewController: UIViewController {
 
     // MARK: - IBOutlets
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var bottomRefreshContainer: UIView!
+    @IBOutlet weak var bottomActivityIndicator: UIActivityIndicatorView!
     
     // MARK: - Properties
     let refreshControl = UIRefreshControl()
@@ -21,7 +23,7 @@ class ProductListViewController: UIViewController {
     var products = [Product]()
     private var pageNumber = 1
     private var isLastPage = false
-    private var isLoading = false
+    private var isLoading = true
 
     // MARK: - Methods
     override func viewDidLoad() {
@@ -32,10 +34,15 @@ class ProductListViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: "ProductCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: cellReuseIdentifier)
         collectionView.refreshControl = refreshControl
-        
+
         // Refresh control
         refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
         refreshControl.tintColor = Theme.yellowTint
+        
+        bottomActivityIndicator.color = Theme.yellowTint
+        bottomRefreshContainer.backgroundColor = .clear
+        bottomRefreshContainer.frame.size.height = 60
+        bottomRefreshContainer.transform = CGAffineTransform(translationX: 0, y: 60)
         
         // Color settings
         view.backgroundColor = Theme.darkBackground
@@ -43,12 +50,9 @@ class ProductListViewController: UIViewController {
         
         // Nav settings
         navigationItem.title = "Products"
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
         // Download products
+        showBottomActivityIndicator()
         downloadProducts()
     }
     
@@ -56,7 +60,6 @@ class ProductListViewController: UIViewController {
     /// Download products from the server using the current page number.
     func downloadProducts() {
         isLoading = true
-        print("Page number: \(pageNumber), \(isLastPage)")
         networkService.downloadProducts(page: pageNumber) { [weak self] (products, isLastPage, error) in
             guard let `self` = self else { return }
             self.isLoading = false
@@ -76,11 +79,28 @@ class ProductListViewController: UIViewController {
                     self.refreshControl.endRefreshing()
                     self.products.removeAll()
                 }
+                self.hideBottomActivityIndicator()
                 self.products.append(contentsOf: products)
                 self.pageNumber += 1
                 self.isLastPage = isLastPage
                 self.collectionView.reloadData()
             }
+        }
+    }
+    
+    func showBottomActivityIndicator() {
+        self.bottomRefreshContainer.isHidden = false
+        self.bottomActivityIndicator.startAnimating()
+        UIView.animate(withDuration: 1.0) {
+            self.bottomRefreshContainer.transform = CGAffineTransform.identity
+        }
+    }
+    
+    func hideBottomActivityIndicator() {
+        self.bottomActivityIndicator.stopAnimating()
+        UIView.animate(withDuration: 1.0) {
+            self.bottomRefreshContainer.isHidden = true
+            self.bottomRefreshContainer.transform = CGAffineTransform(translationX: 0, y: 60)
         }
     }
     
@@ -145,6 +165,7 @@ extension ProductListViewController {
         let distanceFromBottom = scrollView.contentSize.height - contentOffsetY
         if distanceFromBottom < height {
             if !isLoading && !isLastPage {
+                showBottomActivityIndicator()
                 downloadProducts()
             }
         }

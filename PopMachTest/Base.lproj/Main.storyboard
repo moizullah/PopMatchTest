@@ -35,35 +35,55 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="qfF-Gx-0oa">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="8tB-5g-Avw">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="sH5-yy-ZZD">
-                                    <size key="itemSize" width="50" height="50"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells/>
-                            </collectionView>
+                                <subviews>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="qfF-Gx-0oa">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="sH5-yy-ZZD">
+                                            <size key="itemSize" width="50" height="50"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells/>
+                                    </collectionView>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B3z-UQ-tS6">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                                        <subviews>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="qto-QI-ums">
+                                                <rect key="frame" x="177.5" y="20" width="20" height="20"/>
+                                            </activityIndicatorView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="ffG-mi-vfp"/>
+                                            <constraint firstItem="qto-QI-ums" firstAttribute="centerX" secondItem="B3z-UQ-tS6" secondAttribute="centerX" id="lfC-wa-1Xt"/>
+                                            <constraint firstItem="qto-QI-ums" firstAttribute="centerY" secondItem="B3z-UQ-tS6" secondAttribute="centerY" id="vvx-Ui-qjz"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="izH-Qb-9ex" firstAttribute="bottom" secondItem="qfF-Gx-0oa" secondAttribute="bottom" id="66K-9H-N5h"/>
-                            <constraint firstItem="qfF-Gx-0oa" firstAttribute="top" secondItem="izH-Qb-9ex" secondAttribute="top" id="i1g-6u-Fxf"/>
-                            <constraint firstItem="izH-Qb-9ex" firstAttribute="trailing" secondItem="qfF-Gx-0oa" secondAttribute="trailing" id="rps-EM-ZtG"/>
-                            <constraint firstItem="qfF-Gx-0oa" firstAttribute="leading" secondItem="izH-Qb-9ex" secondAttribute="leading" id="vcL-pN-pJ2"/>
+                            <constraint firstAttribute="bottom" secondItem="8tB-5g-Avw" secondAttribute="bottom" id="Dws-ud-73G"/>
+                            <constraint firstItem="8tB-5g-Avw" firstAttribute="trailing" secondItem="izH-Qb-9ex" secondAttribute="trailing" id="NIj-Lp-GY7"/>
+                            <constraint firstItem="8tB-5g-Avw" firstAttribute="top" secondItem="izH-Qb-9ex" secondAttribute="top" id="df0-FI-OGc"/>
+                            <constraint firstItem="8tB-5g-Avw" firstAttribute="leading" secondItem="izH-Qb-9ex" secondAttribute="leading" id="i6K-mR-JUl"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="izH-Qb-9ex"/>
                     </view>
                     <navigationItem key="navigationItem" id="FhT-ZX-Ehd"/>
                     <connections>
+                        <outlet property="bottomActivityIndicator" destination="qto-QI-ums" id="ONV-5S-FlX"/>
+                        <outlet property="bottomRefreshContainer" destination="B3z-UQ-tS6" id="7Dz-QS-Z0i"/>
                         <outlet property="collectionView" destination="qfF-Gx-0oa" id="tFZ-m5-Lda"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5CR-jB-yWm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="460" y="113"/>
+            <point key="canvasLocation" x="460" y="112.89355322338831"/>
         </scene>
     </scenes>
 </document>
