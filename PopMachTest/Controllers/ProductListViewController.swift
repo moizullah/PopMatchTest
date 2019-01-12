@@ -28,6 +28,9 @@ class ProductListViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: "ProductCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: cellReuseIdentifier)
+        
+        view.backgroundColor = UIColor(white: 1.0, alpha: 0.95)
+        collectionView.backgroundColor = .clear
     }
 }
 
@@ -47,7 +50,9 @@ extension ProductListViewController: UICollectionViewDataSource {
         guard let productCell = cell as? ProductCollectionViewCell else {
             return cell
         }
-        productCell.label.text = data[indexPath.row]
+        productCell.nameLabel.text = data[indexPath.row]
+        productCell.image.image = UIImage(named: "placeholder")
+        productCell.priceLabel.text = "RM 150.0"
         return productCell
     }
 }
@@ -55,7 +60,7 @@ extension ProductListViewController: UICollectionViewDataSource {
 extension ProductListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = CGFloat((collectionView.bounds.size.width / 2) - 15)
-        return CGSize(width: width, height: 400)
+        return CGSize(width: width, height: 220)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

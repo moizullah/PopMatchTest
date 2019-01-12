@@ -10,7 +10,11 @@ import UIKit
 
 class ProductCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var image: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -20,6 +24,6 @@ class ProductCollectionViewCell: UICollectionViewCell {
     }
     
     override func prepareForReuse() {
-        label.text = ""
+        nameLabel.text = ""
     }
 }
