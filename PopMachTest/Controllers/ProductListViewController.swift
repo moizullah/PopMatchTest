@@ -16,6 +16,7 @@ class ProductListViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     // MARK: - Properties
+    let refreshControl = UIRefreshControl()
     let networkService = NetworkService.shared
     var products = [Product]()
     private var pageNumber = 1
@@ -30,6 +31,11 @@ class ProductListViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: "ProductCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: cellReuseIdentifier)
+        collectionView.refreshControl = refreshControl
+        
+        // Refresh control
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+        refreshControl.tintColor = Theme.yellowTint
         
         // Color settings
         view.backgroundColor = Theme.darkBackground
@@ -50,6 +56,7 @@ class ProductListViewController: UIViewController {
     /// Download products from the server using the current page number.
     func downloadProducts() {
         isLoading = true
+        print("Page number: \(pageNumber), \(isLastPage)")
         networkService.downloadProducts(page: pageNumber) { [weak self] (products, isLastPage, error) in
             guard let `self` = self else { return }
             self.isLoading = false
@@ -65,11 +72,23 @@ class ProductListViewController: UIViewController {
             }
             
             DispatchQueue.main.async {
-                self.products = products
+                if self.refreshControl.isRefreshing {
+                    self.refreshControl.endRefreshing()
+                    self.products.removeAll()
+                }
+                self.products.append(contentsOf: products)
+                self.pageNumber += 1
                 self.isLastPage = isLastPage
                 self.collectionView.reloadData()
             }
         }
+    }
+    
+    // Refresh control action
+    @objc func refreshData(_ sender: UIRefreshControl) {
+        pageNumber = 1
+        isLastPage = false
+        downloadProducts()
     }
 }
 
@@ -114,5 +133,20 @@ extension ProductListViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0.0
+    }
+}
+
+// MARK: - UIScrollView Methods
+extension ProductListViewController {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // Fetch more data when user reaches end of current list
+        let height = scrollView.frame.size.height
+        let contentOffsetY = scrollView.contentOffset.y
+        let distanceFromBottom = scrollView.contentSize.height - contentOffsetY
+        if distanceFromBottom < height {
+            if !isLoading && !isLastPage {
+                downloadProducts()
+            }
+        }
     }
 }

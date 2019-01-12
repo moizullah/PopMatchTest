@@ -24,7 +24,7 @@ class ProductCollectionViewCell: UICollectionViewCell {
         // Color settings
         self.backgroundColor = Theme.darkBackgroundSubView
         nameLabel.textColor = Theme.lightText
-        priceLabel.textColor = Theme.lightText
+        priceLabel.textColor = Theme.yellowTint
         dateLabel.textColor = .lightGray
         image.alpha = 0.9
 

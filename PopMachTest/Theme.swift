@@ -19,4 +19,6 @@ struct Theme {
     
     static let lightBackgroundSubView = UIColor(white: 1.0, alpha: 0.95)
     static let lightBackground = UIColor(white: 1.0, alpha: 0.8)
+    
+    static let yellowTint = UIColor(red: 227.0/255.0, green: 181.0/255.0, blue: 53.0/255.0, alpha: 1.0)
 }
