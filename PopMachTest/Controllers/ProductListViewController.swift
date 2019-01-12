@@ -16,13 +16,11 @@ class ProductListViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     // MARK: - Properties
-    let data = [
-        "Honda",
-        "Kawasaki",
-        "Suzuki",
-        "Triumph",
-        "Yamaha"
-    ]
+    let networkService = NetworkService.shared
+    var products = [Product]()
+    private var pageNumber = 1
+    private var isLastPage = false
+    private var isLoading = false
 
     // MARK: - Methods
     override func viewDidLoad() {
@@ -40,6 +38,39 @@ class ProductListViewController: UIViewController {
         // Nav settings
         navigationItem.title = "Products"
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Download products
+        downloadProducts()
+    }
+    
+    
+    /// Download products from the server using the current page number.
+    func downloadProducts() {
+        isLoading = true
+        networkService.downloadProducts(page: pageNumber) { [weak self] (products, isLastPage, error) in
+            guard let `self` = self else { return }
+            self.isLoading = false
+
+            guard error == nil else {
+                print("Error downloading: \(String(describing: error))")
+                return
+            }
+            
+            guard let products = products else {
+                print("No data found")
+                return
+            }
+            
+            DispatchQueue.main.async {
+                self.products = products
+                self.isLastPage = isLastPage
+                self.collectionView.reloadData()
+            }
+        }
+    }
 }
 
 // MARK: - UICollectionViewDelegate
@@ -52,7 +83,7 @@ extension ProductListViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.count
+        return products.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -60,9 +91,8 @@ extension ProductListViewController: UICollectionViewDataSource {
         guard let productCell = cell as? ProductCollectionViewCell else {
             return cell
         }
-        productCell.nameLabel.text = data[indexPath.row]
-        productCell.image.image = UIImage(named: "placeholder")
-        productCell.priceLabel.text = "RM 150.0"
+        let product = products[indexPath.row]
+        productCell.displayProduct(product: product)
         return productCell
     }
 }

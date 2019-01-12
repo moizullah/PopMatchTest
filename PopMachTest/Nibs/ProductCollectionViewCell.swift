@@ -18,6 +18,9 @@ class ProductCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        image.contentMode = .scaleAspectFill
+        image.layer.masksToBounds = true
+        
         // Color settings
         self.backgroundColor = Theme.darkBackgroundSubView
         nameLabel.textColor = Theme.lightText
@@ -36,5 +39,12 @@ class ProductCollectionViewCell: UICollectionViewCell {
         nameLabel.text = nil
         priceLabel.text = nil
         dateLabel.text = nil
+    }
+    
+    func displayProduct(product: Product) {
+        nameLabel.text = product.name
+        image.image = product.image
+        priceLabel.text = "\(product.currency) \(product.price)"
+        dateLabel.text = product.dateUpdated
     }
 }
