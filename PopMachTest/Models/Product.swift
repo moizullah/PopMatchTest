@@ -12,7 +12,7 @@ import UIKit
 class Product: Codable {
     let id: Int
     let name: String
-    let price: Int
+    let price: String
     let type: String
     var image: UIImage?
     let imageUrl: URL
@@ -41,7 +41,7 @@ class Product: Codable {
         case showFavouriteButton = "show_button_favourite"
     }
     
-    init(id: Int, name: String, price: Int, type: String, imageUrl: URL, category: String, country: String, state: String, currency: String, isFavourite: Bool, dateCreated: String, dateUpdated: String, showFavouriteButton: Bool) {
+    init(id: Int, name: String, price: String, type: String, imageUrl: URL, category: String, country: String, state: String, currency: String, isFavourite: Bool, dateCreated: String, dateUpdated: String, showFavouriteButton: Bool) {
         self.id = id
         self.name = name
         self.price = price
@@ -78,7 +78,7 @@ class Product: Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let id = try container.decode(Int.self, forKey: .id)
         let name = try container.decode(String.self, forKey: .name)
-        let price = try container.decode(Int.self, forKey: .price)
+        let price = try container.decode(String.self, forKey: .price)
         let type = try container.decode(String.self, forKey: .type)
         let imageUrl = try container.decode(URL.self, forKey: .imageUrl)
         let category = try container.decode(String.self, forKey: .category)

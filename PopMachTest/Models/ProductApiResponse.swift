@@ -9,10 +9,19 @@
 import Foundation
 
 struct ProductApiResponse: Codable {
-    let status: String
+    let status: Bool
     let products: [Product]
     let total: Int
     let productsPerPage: Int
     let hasNextPage: Bool
     let responseCode: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case status
+        case products = "data"
+        case total
+        case productsPerPage = "per_page"
+        case hasNextPage = "have_next_page"
+        case responseCode = "code"
+    }
 }
