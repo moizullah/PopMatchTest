@@ -42,8 +42,8 @@ class NetworkService {
     ///   - products: An optional array of `Product` objects
     ///   - isLastPage: A flag indicating whether the current page is marked as the last page by the server
     ///   - error: An optional error object
-    func downloadProducts(page: Int = 1, completion: @escaping (_ products: [Product]?, _ isLastPage: Bool, _ error: Error?) -> Void) {
-        let url = URL(string: API.ProductsList.rawValue + "?pages=\(page)")!
+    func downloadProducts(page: Int, completion: @escaping (_ products: [Product]?, _ isLastPage: Bool, _ error: Error?) -> Void) {
+        let url = URL(string: API.ProductsList.rawValue + "?page=\(page)")!
         let group = DispatchGroup()
 
         // Request products listing parsed as ProductApiResponse
